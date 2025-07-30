@@ -14,7 +14,7 @@ This is a simple Node.js + Express.js + MongoDB API that tracks vendor-wise purc
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/vendor-report-api.git
+   git clone https://github.com/your-username/Vendor-Spend-API.git
    cd vendor-report-api
 
 2. **Install Dependencies**
