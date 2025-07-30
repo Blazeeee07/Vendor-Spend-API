@@ -32,4 +32,74 @@ PORT=5000
    ```bash
    npm start
 
+## 📮 API Endpoints
+
+### ✅ GET `/api/reports/vendor-spend`
+
+API to fetch spend analysis from MongoDB collections.
+
+#### Success response:
+
+[
+    {
+        "vendor": "Vendor A",
+        "totalPOAmount": 10000,
+        "totalInvoicePaid": 6000
+    }
+]
+
+### ✅ POST `/api/reports/purchase-orders`
+
+Create a new purchase order.
+
+#### 🔸 Request Payload:
+
+```json
+{
+  "vendor": "Vendor A",
+  "amount": 5000
+}
+
+
+#### Success response:
+
+{
+    "message": "Purchase order created",
+    "data": {
+        "vendor": "Vendor A",
+        "amount": 5000,
+        "date": "2025-07-30T18:53:26.329Z",
+        "_id": "688a6a263e57b325ef947259",
+        "__v": 0
+    }
+}
+
+### ✅ POST `/api/reports/invoices`
+
+Create a new invoice.
+
+#### 🔸 Request Payload:
+
+```json
+{
+  "vendor": "Vendor A",
+  "amountPaid": 3000
+}
+
+
+**#### Success response:**
+
+{
+    "message": "Invoice created",
+    "data": {
+        "vendor": "Vendor A",
+        "amountPaid": 3000,
+        "paidDate": "2025-07-30T18:55:21.893Z",
+        "_id": "688a6a993e57b325ef94725b",
+        "__v": 0
+    }
+}
+
+
+
 
