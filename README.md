@@ -21,7 +21,7 @@ This is a simple Node.js + Express.js + MongoDB API that tracks vendor-wise purc
    ```bash
    npm install
 3. **Create a .env file**
-   ```bash
+   `
    touch .env
 
 **ADD THE FOLLOWING**:
@@ -29,7 +29,7 @@ MONGO_URI=<your_mongodb_connection_string>
 PORT=5000
 
 4. **Run the server**
-   ```bash
+   
    npm start
 
 ## 📮 API Endpoints
@@ -54,7 +54,6 @@ Create a new purchase order.
 
 #### 🔸 Request Payload:
 
-```json
 {
   "vendor": "Vendor A",
   "amount": 5000
@@ -74,20 +73,21 @@ Create a new purchase order.
     }
 }
 
+
 ### ✅ POST `/api/reports/invoices`
 
 Create a new invoice.
 
 #### 🔸 Request Payload:
 
-```json
+
 {
   "vendor": "Vendor A",
   "amountPaid": 3000
 }
 
 
-**#### Success response:**
+#### Success response:
 
 {
     "message": "Invoice created",
