@@ -3,6 +3,10 @@ const Invoice = require("../models/Invoice");
 
 const getVendorSpendReport = async (req, res) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
     const poAgg = await PurchaseOrder.aggregate([
       { $group: { _id: "$vendor", totalPOAmount: { $sum: "$amount" } } }
     ]);
@@ -14,18 +18,34 @@ const getVendorSpendReport = async (req, res) => {
     const resultMap = new Map();
 
     poAgg.forEach(po => {
-      resultMap.set(po._id, { vendor: po._id, totalPOAmount: po.totalPOAmount, totalInvoicePaid: 0 });
+      resultMap.set(po._id, {
+        vendor: po._id,
+        totalPOAmount: po.totalPOAmount,
+        totalInvoicePaid: 0
+      });
     });
 
     invoiceAgg.forEach(inv => {
       if (resultMap.has(inv._id)) {
         resultMap.get(inv._id).totalInvoicePaid = inv.totalInvoicePaid;
       } else {
-        resultMap.set(inv._id, { vendor: inv._id, totalPOAmount: 0, totalInvoicePaid: inv.totalInvoicePaid });
+        resultMap.set(inv._id, {
+          vendor: inv._id,
+          totalPOAmount: 0,
+          totalInvoicePaid: inv.totalInvoicePaid
+        });
       }
     });
 
-    res.json(Array.from(resultMap.values()));
+    const allResults = Array.from(resultMap.values());
+    const paginated = allResults.slice(skip, skip + limit);
+    console.log("REAL DATA")
+    res.json({
+      page,
+      totalVendors: allResults.length,
+      vendorsOnPage: paginated.length,
+      data: paginated
+    });
   } catch (error) {
     console.error("Aggregation error:", error);
     res.status(500).json({ error: "Internal server error" });
